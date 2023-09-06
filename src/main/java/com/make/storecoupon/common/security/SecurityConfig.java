@@ -32,8 +32,6 @@ public class SecurityConfig implements WebMvcConfigurer {
     http.httpBasic().disable()
         .csrf().disable()
         .formLogin().disable();
-    http.formLogin().disable();
-    http.formLogin().disable();
     http
         .headers()
         .xssProtection()

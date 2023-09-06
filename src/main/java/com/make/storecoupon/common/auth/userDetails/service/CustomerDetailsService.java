@@ -4,7 +4,9 @@ import com.make.storecoupon.common.auth.userDetails.entity.CustomerDetails;
 import com.make.storecoupon.customer.entity.Customer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerDetailsService implements UserDetailsServiceAddGetType{
 
   @Override
