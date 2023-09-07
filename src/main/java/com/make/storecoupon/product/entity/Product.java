@@ -59,4 +59,7 @@ public class Product {
     if (this.salesStatus == SalesStatus.DELETED) throw new DuplicateRequestException("이미 삭제처리된 상품입니다.");
     this.salesStatus = SalesStatus.DELETED;
   }
+  public boolean isPriceChanged(Long requestPrice){
+    return !this.productPrice.equals(requestPrice);
+  }
 }
