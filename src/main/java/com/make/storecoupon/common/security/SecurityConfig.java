@@ -21,7 +21,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
-@EnableReactiveMethodSecurity(useAuthorizationManager=true)
 public class SecurityConfig implements WebMvcConfigurer {
 
   private final JwtUtil jwtUtil;
@@ -44,7 +43,8 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     http.authorizeHttpRequests()
         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-        .requestMatchers("/**").permitAll() // 현재 일단 다 열어놓음
+        .requestMatchers("/mart/**").permitAll()
+        .requestMatchers("/customer/**").permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilterBefore(new CustomerAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)

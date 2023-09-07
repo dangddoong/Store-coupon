@@ -36,6 +36,7 @@ public class ProductController {
     return ResponseEntity.status(HttpStatus.CREATED).body(productId);
   }
 
+  @PreAuthorize("hasRole('MART')")
   @PatchMapping("/products/{productId}")
   public ResponseEntity<String> updateProduct(@AuthenticationPrincipal MartDetails martDetails,
       @PathVariable Long productId, @Valid @RequestBody UpdateProductRequestDto requestDto){
@@ -43,6 +44,7 @@ public class ProductController {
     return new ResponseEntity<>("제품 업데이트 성공", HttpStatus.OK);
   }
 
+  @PreAuthorize("hasRole('MART')")
   @DeleteMapping("/products/{productId}")
   public ResponseEntity<String> deleteProduct(@AuthenticationPrincipal MartDetails martDetails,
       @PathVariable Long productId){
@@ -54,7 +56,7 @@ public class ProductController {
 //  public GetProductsResponseDto getProducts(@RequestParam Long lastProductId){
 //    return productService.getProducts(lastProductId);
 //  }
-//
+//  
 //  @GetMapping("/marts/products")
 //  public InquiryForMartDto getProductsForMart(@AuthenticationPrincipal MartDetails martDetails,
 //      @RequestParam Long lastProductId){

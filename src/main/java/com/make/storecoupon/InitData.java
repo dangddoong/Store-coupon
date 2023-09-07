@@ -14,5 +14,6 @@ public class InitData implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) throws Exception {
     martService.register("testMart", "test1234");
+    martService.register("anotherMart", "test1234");
   }
 }
