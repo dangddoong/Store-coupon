@@ -54,4 +54,7 @@ public class Product {
   public void updateProductPrice(Long productPrice){
     this.productPrice = productPrice;
   }
+  public void deleteProduct(){
+    this.salesStatus = SalesStatus.DELETED;
+  }
 }

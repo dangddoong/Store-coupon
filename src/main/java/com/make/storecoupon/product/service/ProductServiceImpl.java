@@ -33,12 +33,15 @@ public class ProductServiceImpl implements ProductService {
     product.updateProductName(requestDto.getProductName());
     product.updateProductPrice(requestDto.getProductPrice());
   }
-//
-//  @Override
-//  @Transactional
-//  public void deleteProduct(Mart mart, Long productId) {
-//
-//  }
+
+  @Override
+  @Transactional
+  public void deleteProduct(Mart mart, Long productId) {
+    Product product = productRepository.findById(productId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
+    product.validateOwner(mart.getId());
+    product.deleteProduct(); // Soft Delete 방식으로 삭제기능 구현.
+  }
 //
 //  @Override
 //  @Transactional(readOnly = true)
