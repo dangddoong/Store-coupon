@@ -7,7 +7,6 @@ import com.make.storecoupon.product.dto.InquiryForMartDto;
 import com.make.storecoupon.product.dto.UpdateProductRequestDto;
 import com.make.storecoupon.product.entity.Product;
 import com.make.storecoupon.product.repository.ProductRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
   private final ProductRepository productRepository;
+  private final ProductPriceHistoryService productPriceHistoryService;
 
   @Override
   @Transactional
   public Long createProduct(CreateProductRequestDto requestDto, Mart mart) {
     Product product = productRepository.save(requestDto.toEntity(mart));
+    productPriceHistoryService.createPriceHistory(product);
     return product.getId();
   }
 
@@ -31,7 +32,10 @@ public class ProductServiceImpl implements ProductService {
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
     product.validateOwner(mart.getId()); // 상품의 소유자와 요청자가 일치하는지 검증
     product.updateProductName(requestDto.getProductName());
-    product.updateProductPrice(requestDto.getProductPrice());
+    if(product.isPriceChanged(requestDto.getProductPrice())) {
+      product.updateProductPrice(requestDto.getProductPrice());
+      productPriceHistoryService.createPriceHistory(product);
+    }
   }
 
   @Override
