@@ -1,6 +1,7 @@
 package com.make.storecoupon.product.entity;
 
 import com.make.storecoupon.mart.entity.Mart;
+import com.sun.jdi.request.DuplicateRequestException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -55,6 +56,7 @@ public class Product {
     this.productPrice = productPrice;
   }
   public void deleteProduct(){
+    if (this.salesStatus == SalesStatus.DELETED) throw new DuplicateRequestException("이미 삭제처리된 상품입니다.");
     this.salesStatus = SalesStatus.DELETED;
   }
 }
