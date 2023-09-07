@@ -24,6 +24,10 @@ public class MartDetails implements UserDetails {
     return authorities;
   }
 
+  public Mart getMart() {
+    return mart;
+  }
+
   @Override
   public String getPassword() {
     return mart.getPassword();
