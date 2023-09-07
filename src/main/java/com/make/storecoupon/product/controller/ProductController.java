@@ -42,13 +42,13 @@ public class ProductController {
     productService.updateProduct(requestDto, martDetails.getMart(), productId);
     return new ResponseEntity<>("제품 업데이트 성공", HttpStatus.OK);
   }
-//
-//  @DeleteMapping("/products/{productId}")
-//  public ResponseEntity<String> deleteProduct(@AuthenticationPrincipal MartDetails martDetails,
-//      @PathVariable Long productId){
-//    productService.deleteProduct(martDetails.getMart(), productId);
-//    return new ResponseEntity<>("제품 삭제 성공", HttpStatus.OK);
-//  }
+
+  @DeleteMapping("/products/{productId}")
+  public ResponseEntity<String> deleteProduct(@AuthenticationPrincipal MartDetails martDetails,
+      @PathVariable Long productId){
+    productService.deleteProduct(martDetails.getMart(), productId);
+    return new ResponseEntity<>("제품 삭제 성공", HttpStatus.OK);
+  }
 //
 //  @GetMapping("/products")
 //  public GetProductsResponseDto getProducts(@RequestParam Long lastProductId){
