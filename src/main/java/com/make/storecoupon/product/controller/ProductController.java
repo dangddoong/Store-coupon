@@ -36,12 +36,12 @@ public class ProductController {
     return ResponseEntity.status(HttpStatus.CREATED).body(productId);
   }
 
-//  @PatchMapping("/products/{productId}")
-//  public ResponseEntity<String> updateProduct(@AuthenticationPrincipal MartDetails martDetails,
-//      @PathVariable Long productId, @Valid @RequestBody UpdateProductRequestDto requestDto){
-//    productService.updateProduct(requestDto, martDetails.getMart(), productId);
-//    return new ResponseEntity<>("제품 업데이트 성공", HttpStatus.OK);
-//  }
+  @PatchMapping("/products/{productId}")
+  public ResponseEntity<String> updateProduct(@AuthenticationPrincipal MartDetails martDetails,
+      @PathVariable Long productId, @Valid @RequestBody UpdateProductRequestDto requestDto){
+    productService.updateProduct(requestDto, martDetails.getMart(), productId);
+    return new ResponseEntity<>("제품 업데이트 성공", HttpStatus.OK);
+  }
 //
 //  @DeleteMapping("/products/{productId}")
 //  public ResponseEntity<String> deleteProduct(@AuthenticationPrincipal MartDetails martDetails,

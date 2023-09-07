@@ -44,4 +44,14 @@ public class Product {
     this.productPrice = productPrice;
     this.salesStatus = SalesStatus.ON_SALE;
   }
+
+  public void validateOwner(Long martId){
+    if(this.id.equals(martId)) throw new IllegalArgumentException("해당제품에 접근권한이 없습니다.");
+  }
+  public void updateProductName(String productName){
+    this.productName = productName;
+  }
+  public void updateProductPrice(Long productPrice){
+    this.productPrice = productPrice;
+  }
 }
