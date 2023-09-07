@@ -51,7 +51,7 @@ public class JwtUtil {
     if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
       return bearerToken.substring(7);
     }
-    throw new AuthenticationServiceException("auth issue");
+    return null;
   }
 
   public String createToken(String username, Long tokenTime) {
