@@ -7,6 +7,7 @@ import com.make.storecoupon.product.dto.InquiryForMartDto;
 import com.make.storecoupon.product.dto.UpdateProductRequestDto;
 import com.make.storecoupon.product.entity.Product;
 import com.make.storecoupon.product.repository.ProductRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,12 @@ public class ProductServiceImpl implements ProductService {
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
     product.validateOwner(mart.getId());
     product.deleteProduct(); // Soft Delete 방식으로 삭제기능 구현.
+  }
+
+  @Override
+  @Transactional
+  public List<Product> getProductsByIds(List<Long> productIds) {
+    return productRepository.findAllByIdIn(productIds);
   }
 //
 //  @Override
