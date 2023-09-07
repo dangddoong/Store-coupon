@@ -4,9 +4,13 @@ import com.make.storecoupon.common.auth.userDetails.entity.MartDetails;
 import com.make.storecoupon.product.dto.CreateProductRequestDto;
 import com.make.storecoupon.product.dto.GetProductsResponseDto;
 import com.make.storecoupon.product.dto.InquiryForMartDto;
+import com.make.storecoupon.product.dto.ProductPriceHistoryResponseDto;
 import com.make.storecoupon.product.dto.UpdateProductRequestDto;
+import com.make.storecoupon.product.service.ProductPriceHistoryService;
 import com.make.storecoupon.product.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
   private final ProductService productService;
+  private final ProductPriceHistoryService productPriceHistoryService;
 
   @PreAuthorize("hasRole('MART')")
   @PostMapping("/products")
@@ -50,6 +55,12 @@ public class ProductController {
       @PathVariable Long productId){
     productService.deleteProduct(martDetails.getMart(), productId);
     return new ResponseEntity<>("제품 삭제 성공", HttpStatus.OK);
+  }
+
+  @GetMapping("/products/{productId}/price")
+  public ProductPriceHistoryResponseDto getProductPriceAtTime(@NotBlank @RequestParam LocalDateTime dateTime,
+      @PathVariable Long productId){
+    return productPriceHistoryService.getProductPriceAtTime(dateTime, productId);
   }
 //
 //  @GetMapping("/products")
