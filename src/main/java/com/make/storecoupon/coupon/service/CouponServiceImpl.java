@@ -29,7 +29,9 @@ public class CouponServiceImpl implements CouponService{
   @Override
   @Transactional
   public Long issueCoupon(Customer customer, Long couponId) {
-    IssuedCoupon issuedCoupon = new IssuedCoupon(couponId, customer.getId());
+    Coupon coupon = couponRepository.findById(couponId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 쿠폰입니다."));
+    IssuedCoupon issuedCoupon = new IssuedCoupon(coupon, customer.getId());
     issuedCouponRepository.save(issuedCoupon);
     return issuedCoupon.getId();
   }
