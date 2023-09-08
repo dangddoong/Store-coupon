@@ -8,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 public class CreateOrderResponseDto {
   private final Long orderId;
   private final Long totalPaymentAmount;
+  private final Long actualPaymentAmount;
 
   public CreateOrderResponseDto(Order order) {
     this.orderId = order.getId();
     this.totalPaymentAmount = order.getTotalPaymentAmount();
+    this.actualPaymentAmount = order.getActualPaymentAmount();
   }
 }

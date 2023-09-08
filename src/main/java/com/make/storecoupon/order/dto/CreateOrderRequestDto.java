@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class CreateOrderRequestDto {
   private List<OrderDetailsDto> orderDetailsDtos;
   private Long deliveryCharge;
+  private Long issuedCouponId;
 
   public List<Long> getProductIds(){
     List<Long> productIds = new ArrayList<>();
