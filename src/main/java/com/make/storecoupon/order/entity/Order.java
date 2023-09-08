@@ -1,5 +1,7 @@
 package com.make.storecoupon.order.entity;
 
+import com.make.storecoupon.coupon.entity.Coupon;
+import com.make.storecoupon.coupon.entity.IssuedCoupon;
 import com.make.storecoupon.customer.entity.Customer;
 import com.make.storecoupon.mart.entity.Mart;
 import jakarta.persistence.Column;
@@ -24,17 +26,26 @@ public class Order {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "customer_id")
   private Customer customer;
+  @Column(nullable = false)
   private Long martId;
   @Column(nullable = false)
   private Long deliveryCharge;
   @Column(nullable = false)
   private Long totalPaymentAmount;
+  @Column(nullable = false)
+  private Long actualPaymentAmount;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "issued_coupon_id")
+  private IssuedCoupon issuedCoupon;
 
   @Builder
-  public Order(Customer customer, Long martId, Long deliveryCharge, Long totalPaymentAmount) {
+  public Order(Customer customer, Long martId, Long deliveryCharge,
+      Long totalPaymentAmount, IssuedCoupon issuedCoupon, Long actualPaymentAmount) {
     this.customer = customer;
     this.martId = martId;
     this.deliveryCharge = deliveryCharge;
     this.totalPaymentAmount = totalPaymentAmount;
+    this.issuedCoupon = issuedCoupon;
+    this.actualPaymentAmount = actualPaymentAmount;
   }
 }
