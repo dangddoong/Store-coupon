@@ -38,6 +38,8 @@ public class OrderServiceImpl implements OrderService{
         .deliveryCharge(requestDto.getDeliveryCharge()).build();
     orderRepository.save(order);
     createOrderProducts(requestDto.getOrderDetailsDtos(), productMap, order);
+    //
+    // 쿠폰적용시 실 결제금액이 마이너스라면 예외던지기.  쿠폰은 하나만 보낼 수 있게 하기.(포스트맨으로 두개 보내봐서 어떻게되나 테스트하기)
     return new CreateOrderResponseDto(order);
   }
 
